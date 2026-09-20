@@ -131,14 +131,23 @@ details[open] > summary { margin-bottom: 8px; }
 .foot { color: var(--muted); font-size: 12px; text-align: center; margin-top: 26px; }
 .empty { color: var(--muted); font-size: 13px; margin: 4px 0 8px; line-height: 1.55; }
 
-.settings {
-  border: 0; padding: 0; background: transparent; width: min(440px, calc(100% - 32px));
-  max-height: calc(100dvh - 48px);
+.settings-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: end center;
+  background: rgba(0, 0, 0, .42);
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
 }
-.settings::backdrop { background: rgba(0, 0, 0, .42); }
+@media (min-width: 601px) {
+  .settings-backdrop { place-items: center; }
+}
 .dialog-panel {
   color: var(--ink); background: var(--card); border: 1px solid var(--line);
-  border-radius: 18px; padding: 24px; overflow-y: auto; max-height: inherit;
+  border-radius: 18px; padding: 24px; overflow-y: auto;
+  width: min(440px, 100%);
+  max-height: calc(100dvh - 48px);
 }
 .dialog-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 .dialog-heading h2 { font-size: 20px; text-transform: none; letter-spacing: 0; color: var(--ink); margin: 0; }
@@ -146,13 +155,15 @@ details[open] > summary { margin-bottom: 8px; }
 .settings h3 { font-size: 14px; margin: 24px 0 8px; }
 .settings .ghost { margin: 16px 0 8px; }
 
-body:has(dialog[open]) { overflow: hidden; }
+body:has(.settings-backdrop) { overflow: hidden; }
 
 @media (min-width: 700px) { .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 600px) {
-  .settings { margin: auto 0 0; width: 100%; max-width: none; }
+  .settings-backdrop { padding: 0; }
   .dialog-panel {
+    width: 100%;
     border-radius: 20px 20px 0 0;
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 16px);
     padding: 20px max(20px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px));
   }
 }

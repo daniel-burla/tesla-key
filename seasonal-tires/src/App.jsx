@@ -214,8 +214,14 @@ export default function App() {
       <p className="foot">Mock PWA · no live vehicle data · https://car.burla.ca</p>
 
       {settingsOpen ? (
-        <dialog className="settings" open aria-labelledby="settingsTitle" onClick={(e) => { if (e.target === e.currentTarget) setSettingsOpen(false); }}>
-          <div className="dialog-panel">
+        <div className="settings-backdrop" onClick={() => setSettingsOpen(false)}>
+          <div
+            className="dialog-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="settingsTitle"
+            onClick={(event) => event.stopPropagation()}
+          >
             <div className="dialog-heading">
               <h2 id="settingsTitle">Settings</h2>
               <button type="button" className="ghost" onClick={() => setSettingsOpen(false)}>Close</button>
@@ -231,7 +237,7 @@ export default function App() {
             <button type="button" className="ghost" onClick={resetDemo}>Reset sample sets</button>
             <p className="empty">Clears this tab’s demo edits. Does not wake the car.</p>
           </div>
-        </dialog>
+        </div>
       ) : null}
     </div>
   );
