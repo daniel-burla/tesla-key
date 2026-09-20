@@ -63,9 +63,8 @@ cp -a "$tmp/CNAME" "$ROOT/CNAME"
 
 # SPA fallback: GitHub Pages serves 404.html for unknown paths.
 # Static files (including .well-known) still win when the path exists.
-if [[ ! -f "$ROOT/404.html" ]]; then
-  cp -a "$ROOT/index.html" "$ROOT/404.html"
-fi
+# Always refresh so hashed asset URLs stay in sync with index.html.
+cp -a "$ROOT/index.html" "$ROOT/404.html"
 
 # Sanity checks
 [[ -f "$ROOT/.well-known/appspecific/com.tesla.3p.public-key.pem" ]] \
