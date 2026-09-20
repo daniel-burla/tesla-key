@@ -41,6 +41,7 @@ cp -a "$ROOT/.nojekyll" "$tmp/.nojekyll"
 cp -a "$ROOT/CNAME" "$tmp/CNAME"
 
 # Old Tesla Monitor entrypoints — drop only after a real dist is copied.
+# Never leave a live Supabase config.js on Pages.
 old_monitor=(
   app.js config.js render.js ui.js styles.css
 )
